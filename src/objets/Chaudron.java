@@ -17,13 +17,13 @@ public class Chaudron {
 	
 	public boolean resterPotion()
 	{
-		if(quantitePotion == 0)
+		if(quantitePotion != 0)
 		{
-			return false;
+			return true;
 		}
 		else
 		{
-			return true;
+			return false;
 		}
 	}
 	
