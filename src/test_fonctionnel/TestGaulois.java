@@ -10,12 +10,11 @@ public class TestGaulois {
 		Romain minus = new Romain("Minus", 6);
 		Romain brutus = new Romain("Brutus", 14);
 		Druide panoramix = new Druide("Panoramix", 2);
-		Chaudron chaudron = new Chaudron();
 		
-		panoramix.fabriquerPotion(4,3, chaudron);
+		panoramix.fabriquerPotion(4,3);
 		
-		panoramix.booster(obelix, chaudron);
-		panoramix.booster(asterix, chaudron);
+		panoramix.booster(obelix);
+		panoramix.booster(asterix);
 			
 		for(int i = 0; i < 3; i++)
 		{

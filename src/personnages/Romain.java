@@ -47,60 +47,54 @@ public class Romain {
 		gaulois.recevoirCoup(force);
 	}
 	
-//	public void recevoirCoup(int forceCoup) {
-//		assert forceCoup > 0 : "La force du coup reçu doit être positive !";
-//		
-//		int forceAvant = force;
-//		force = force - forceCoup;
-//		
-//		if(force < 1)
-//		{
-//			force = 0;
-//			parler("J'abandonne !");
-//		}
-//		else
-//		{
-//			parler("Aïe !");
-//		}
-//		
-//		assert forceAvant < force : "La force d'un Romain doit diminué !";
-//		
-//		assert isInvariantVerified() : "La force doit être positive !";
-//	}
-	
 	public Equipement[] recevoirCoup(int forceCoup) {
 		Equipement[] equipementEjecte = null;
 		forceCoup = calculerResistanceEquipement(forceCoup);
-
-		force -= forceCoup;
-		if(force == 0) 
+		
+		if(forceCoup > 0)
 		{
-			parler("Aïe");
+			equipementEjecte = ejecterEquipement();
 		}
 		else
 		{
-			equipementEjecte = ejecterEquipement();
-			parler("J'abandonne...");
+			forceCoup = 0;
+		}
+		
+		if(forceCoup >= force)
+		{
+			force = 0;
+		}
+		else
+		{
+			force -= forceCoup;
+		}
+
+		if(force == 0) 
+		{
+			parler("J'Abandonne !");
+		}
+		else
+		{
+			parler("Aïe");
 		}
 		
 		return equipementEjecte;
 	}
 	
 	private int calculerResistanceEquipement(int forceCoup) {
-  String texte;
-		texte = "Ma force est de " + this.force + ", et la force du coup est de" + forceCoup;
+		String texte;
+		texte = "Ma force est de " + this.force + ", et la force du coup est de " + forceCoup;
 		int resistanceEquipement = 0;
 		if (nbEquipement != 0) {
 			texte += "\nMais heureusement, grace à mon équipement sa force est diminué de ";
 			for (int i = 0; i < nbEquipement; i++) {
 				if ((equipements[i] != null && equipements[i].equals(Equipement.BOUCLIER))) 
 				{
-					resistanceEquipement += 8;
+					resistanceEquipement += 6;
 				} 
 				else 
 				{
-					System.out.println("Equipement casque");
-					resistanceEquipement += 5;
+					resistanceEquipement += 3;
 				}
 			}
 			texte += resistanceEquipement + "!";
@@ -112,7 +106,7 @@ public class Romain {
 	
 	private Equipement[] ejecterEquipement() {
 		Equipement[] equipementEjecte = new Equipement[nbEquipement];
-		System.out.println("L'équipement de " + nom.toString() + " s'envole sous la force du coup.");
+		System.out.println("L'équipement de " + getNom() + " s'envole sous la force du coup.");
 		int nbEquipementEjecte = 0;
 		for (int i = 0; i < nbEquipement; i++) 
 		{
@@ -128,7 +122,7 @@ public class Romain {
 	
 	public void sEquiper(Equipement equipement) 
 	{
-		String debut = "Le soldat" + getNom();
+		String debut = "Le soldat " + getNom();
 		
         switch (nbEquipement) {
 

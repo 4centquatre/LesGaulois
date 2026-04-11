@@ -5,7 +5,6 @@ import objets.Equipement;
 
 public class Gaulois {
 	private String nom;
-//	private int force;
 	private int force;
 	private int nbTrophees;
 	private Equipement[] trophees = new Equipement[100];
@@ -15,12 +14,17 @@ public class Gaulois {
 	
 	public Gaulois(String nom, int force) {
 		this.nom = nom;
-		this.force = force;
 		this.effetPotion = 1;
+		this.force = force;
 	}
 	
 	public String getNom() {
 		return nom;
+	}
+	
+	public int getForce()
+	{
+		return force;
 	}
 	
 	public void setVillage(Village village)
@@ -32,34 +36,15 @@ public class Gaulois {
 		System.out.println(prendreParole() + "\"" + texte + "\"");
 	}
 	
-//	private String prendreParole() {
-//		return "Le gaulois " + nom + " : ";
-//	}
-	
 	private String prendreParole() 
 	{
 		return "Le gaulois " + getNom() + " : ";
 	}
 	
-//	@Override
-//	public String toString() {
-//		return nom;
-//	}
-	
-//	public void frapper(Romain romain) {
-//		System.out.println(nom + " envoie un grand coup dans la machoire de " + romain.getNom());
-//		int forceCoup = force * effetPotion;
-//		romain.recevoirCoup(forceCoup / 3);
-//		if(effetPotion > 1)
-//		{
-//			effetPotion -= 1;
-//		}
-//	}
-	
 	public void frapper(Romain romain) 
 	{
 		System.out.println(nom + " envoie un grand coup dans la mâchoire de " + romain.getNom());
-		Equipement[] tropheesRomain = romain.recevoirCoup((force / 3) * effetPotion);
+		Equipement[] tropheesRomain = romain.recevoirCoup((force / 2) * effetPotion);
 		effetPotion--;
 		if (effetPotion < 1) 
 		{
@@ -76,7 +61,7 @@ public class Gaulois {
 		if(force < 1)
 		{
 			force = 0;
-			parler("J'abandonne ! ");
+			parler("J'abandonne !");
 		}
 		else
 		{
@@ -104,6 +89,22 @@ public class Gaulois {
 		else
 		{
 			parler(debut + ". Je voyage de villages en villages");
+		}
+	}
+	
+	public void faireUneDonation(Musee musee)
+	{
+		String chaine = "";
+		if(nbTrophees > 0)
+		{
+			for(int i = 0; i < nbTrophees; i++)
+			{
+				musee.donnerTrophees(this, trophees[i]);
+				chaine = chaine + trophees[i] + " ; ";
+			}
+			nbTrophees = 0;
+			
+			this.parler("Je donne au musee tous mes trophees : \n" + chaine);
 		}
 	}
 
